@@ -1,0 +1,13 @@
+{
+  "name": "xile-ai",
+  "version": "1.0.0",
+  "description": "Xile AI: a standalone, offline AI agent app that runs on local Ollama models",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^38.0.0"
+  }
+}

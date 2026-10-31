@@ -1,0 +1,20 @@
+/* Look of the LEFT sidebar: logo, New chat, search, chat list, Edit Xile AI itself. */
+#sidebar { background: var(--side); border-right: 1px solid var(--line); display: flex; flex-direction: column; padding: 14px 10px; min-height: 0; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; padding: 4px 8px 16px; }
+.brand img { width: 30px; height: 30px; border-radius: 8px; }
+.side-btn { display: flex; align-items: center; gap: 10px; width: 100%; background: none; border: 0; padding: 9px 10px; border-radius: 10px; text-align: left; }
+.side-btn:hover { background: var(--raised); }
+.side-btn .ico { width: 18px; text-align: center; color: var(--muted); }
+.search-wrap { padding: 6px 4px; }
+#searchChats { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; outline: none; }
+#searchChats:focus { border-color: var(--accent); }
+.section-label { font-size: 12px; color: var(--muted); padding: 14px 10px 6px; }
+#chatList { flex: 1; overflow-y: auto; min-height: 0; }
+.chat-item { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 10px; cursor: pointer; }
+.chat-item:hover, .chat-item.active { background: var(--raised); }
+.chat-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px; }
+.chat-del { visibility: hidden; background: none; border: 0; color: var(--muted); padding: 0 4px; }
+.chat-item:hover .chat-del { visibility: visible; }
+.chat-del:hover { color: var(--bad); }
+.run-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); animation: pulse 1.2s infinite; }
+.side-bottom { border-top: 1px solid var(--line); padding-top: 8px; }

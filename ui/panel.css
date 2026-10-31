@@ -1,0 +1,26 @@
+/* Look of the RIGHT panel: Environment, Context, Usage and Settings cards. */
+#panel { border-left: 1px solid var(--line); padding: 14px 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.card-title { font-size: 13px; font-weight: 600; color: var(--muted); }
+.row { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.row.between { justify-content: space-between; }
+.row.gap { flex-wrap: wrap; }
+.folder-row #folderName { flex: 1; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#folderPath { word-break: break-all; }
+.link { cursor: pointer; }
+.link:hover { text-decoration: underline; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+.dot.on { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+.dot.off { background: var(--bad); }
+.mini-btn { background: var(--raised); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; font-size: 13px; }
+.mini-btn:hover { border-color: var(--muted); }
+.bar { height: 7px; background: var(--raised); border-radius: 99px; overflow: hidden; }
+#ctxBar { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 99px; transition: width 0.4s; }
+#ctxBar.warn { background: var(--warn); }
+#ctxBar.full { background: var(--bad); }
+.stat { display: flex; justify-content: space-between; font-size: 14px; }
+.stat span:first-child { color: var(--muted); }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.field select, .field input { background: var(--raised); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; color: var(--text); outline: none; }
+.toggle { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.toggle input { accent-color: var(--accent); width: 16px; height: 16px; }

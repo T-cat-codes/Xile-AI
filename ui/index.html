@@ -1,0 +1,130 @@
+<!doctype html>
+<!--
+  Xile AI window layout. Three columns:
+    LEFT   = sidebar (chat list)      -> look: sidebar.css   buttons: sidebar.js
+    MIDDLE = chat + chat box          -> look: chat.css, composer.css   buttons: chat.js, composer.js
+    RIGHT  = info panel               -> look: panel.css     buttons: panel.js
+  Colors and fonts for everything: theme.css
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'">
+  <title>Xile AI</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="composer.css">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ===== LEFT: SIDEBAR ===== -->
+    <aside id="sidebar">
+      <div class="brand"><img src="../icon.png" alt=""><span>Xile AI</span></div>
+      <button id="newChat" class="side-btn"><span class="ico">＋</span>New chat</button>
+      <div class="search-wrap"><input id="searchChats" placeholder="Search chats"></div>
+      <div class="section-label">Chats</div>
+      <div id="chatList"></div>
+      <div class="side-bottom">
+        <button id="editSelf" class="side-btn"><span class="ico">✎</span>Edit Xile AI itself</button>
+      </div>
+    </aside>
+
+    <!-- ===== MIDDLE: CHAT ===== -->
+    <main id="center">
+      <header id="topbar">
+        <span id="chatTitle">New chat</span>
+        <span class="spacer"></span>
+        <button id="togglePanel" class="icon-btn" title="Show or hide the right panel">▥</button>
+      </header>
+
+      <div id="messages"></div>
+
+      <!-- ===== MIDDLE BOTTOM: CHAT BOX (composer) ===== -->
+      <div id="composerWrap">
+        <div id="composer">
+          <div id="attachments"></div>
+          <div id="composerRow">
+            <button id="attachBtn" class="icon-btn" title="Add pictures (or paste / drag them in)">＋</button>
+            <textarea id="input" rows="1" placeholder="Ask Xile AI to do something… (paste pictures with Ctrl+V)"></textarea>
+            <button id="sendBtn" title="Send (Enter)">↑</button>
+          </div>
+          <input id="fileInput" type="file" accept="image/*" multiple hidden>
+        </div>
+        <div id="composerBar">
+          <select id="modelSelect" title="Which AI model to use"></select>
+          <select id="modeSelect" title="When Xile AI asks before acting">
+            <option value="ask">Ask before changes</option>
+            <option value="edits">Auto-approve file edits</option>
+            <option value="auto">Full auto (never ask)</option>
+          </select>
+          <span class="spacer"></span>
+          <span id="status"></span>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===== RIGHT: INFO PANEL ===== -->
+    <aside id="panel">
+      <section class="card">
+        <div class="card-title">Environment</div>
+        <div class="row"><span class="dot" id="ollamaDot"></span><span id="ollamaText">Checking Ollama…</span></div>
+        <div class="row folder-row">
+          <span class="ico">📁</span>
+          <span id="folderName" class="link" title="Open in File Explorer"></span>
+          <button id="changeFolder" class="mini-btn">Change</button>
+        </div>
+        <div id="folderPath" class="muted small"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">Context</div>
+        <div class="row between"><span id="ctxPct">0% used</span><span id="ctxNums" class="muted"></span></div>
+        <div class="bar"><div id="ctxBar"></div></div>
+        <div class="muted small">How much the AI can remember in this chat. Start a new chat when it gets full.</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">Usage</div>
+        <div class="stat"><span>Today</span><span id="useToday"></span></div>
+        <div class="stat"><span>Tokens in / out</span><span id="useTokens"></span></div>
+        <div class="stat"><span>Time thinking</span><span id="useTime"></span></div>
+        <div class="stat"><span>Speed</span><span id="useSpeed">–</span></div>
+        <div class="stat"><span>All time</span><span id="useTotal"></span></div>
+        <div class="muted small">Free and unlimited: it all runs on your PC.</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">Settings</div>
+        <label class="field">Memory size (context)
+          <select id="ctxSelect">
+            <option value="8192">8k (fastest)</option>
+            <option value="16384">16k</option>
+            <option value="32768">32k (recommended)</option>
+            <option value="65536">64k (slower)</option>
+          </select>
+        </label>
+        <label class="toggle"><input type="checkbox" id="webToggle"> Allow web browsing</label>
+        <label class="field">Ollama address
+          <input id="ollamaUrl">
+        </label>
+        <div class="row gap">
+          <button id="reloadBtn" class="mini-btn" title="Ctrl+R">Reload window</button>
+          <button id="restartBtn" class="mini-btn">Restart app</button>
+        </div>
+      </section>
+    </aside>
+
+  </div>
+  <!-- Order matters: state.js first (shared helpers), start.js last (starts everything). -->
+  <script src="state.js"></script>
+  <script src="markdown.js"></script>
+  <script src="sidebar.js"></script>
+  <script src="chat.js"></script>
+  <script src="composer.js"></script>
+  <script src="panel.js"></script>
+  <script src="start.js"></script>
+</body>
+</html>

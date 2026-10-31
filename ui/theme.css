@@ -1,0 +1,43 @@
+/* Colors, fonts and sizes for the whole app. Change a value here and it changes everywhere. */
+:root {
+  --bg: #1c1b1a;        /* main background */
+  --side: #161514;      /* left sidebar background */
+  --card: #232220;      /* cards, chat box */
+  --raised: #2b2a27;    /* buttons, your chat bubbles */
+  --line: #34322f;      /* borders */
+  --text: #ece9e4;      /* main text */
+  --muted: #9b968e;     /* gray text */
+  --accent: #8b5cf6;    /* violet: highlights, Yes button */
+  --accent2: #38bdf8;   /* sky blue: second highlight color */
+  --ok: #4ade80;        /* green */
+  --warn: #fbbf24;      /* yellow */
+  --bad: #f87171;       /* red */
+  --radius: 14px;       /* how round corners are */
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 15px;      /* base text size */
+  color: var(--text);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: #3a3835; border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
+.muted { color: var(--muted); }
+.small { font-size: 12.5px; line-height: 1.4; }
+.spacer { flex: 1; }
+.icon-btn { background: none; border: 0; color: var(--muted); font-size: 18px; padding: 4px 8px; border-radius: 8px; }
+.icon-btn:hover { background: var(--raised); color: var(--text); }
+.btn { background: var(--raised); border: 1px solid var(--line); border-radius: 9px; padding: 6px 14px; }
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn.danger:hover { border-color: var(--bad); color: var(--bad); }
+
+/* The three columns: left sidebar, middle chat, right panel. */
+#app { display: grid; grid-template-columns: 260px 1fr 300px; height: 100vh; }
+body.no-panel #app { grid-template-columns: 260px 1fr 0; }
+body.no-panel #panel { display: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 50% { opacity: 0.35; } }
