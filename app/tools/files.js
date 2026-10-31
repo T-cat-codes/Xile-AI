@@ -162,9 +162,36 @@ module.exports = [
     run: async (a, ctx) => {
       const file = resolve(ctx, a.path);
       fs.mkdirSync(path.dirname(file), { recursive: true });
-      const undo = backups.save(file);
-      fs.writeFileSync(file, stripLineNumbers(a.content));
-      return { text: `Wrote ${String(a.content ?? '').split('\n').length} lines to ${file}`, undo };
-    },
-  },
-];
+       fs.writeFileSync(file, stripLineNumbers(a.content));
+       return { text: `Wrote ${String(a.content ?? '').split('\n').length} lines to ${file}`, undo };
+     },
+   },
+   {
+     name: 'search_workspace',
+     about: 'Search for text patterns using regex across the working folder (excluding node_modules, .git, dist, and out). Returns matching file paths with line numbers and preview snippets.',
+     inputs: { query: 'Regex pattern to search for', case_sensitive: 'boolean: Whether to match case sensitively, default false' },
+     required: ['query'],
+     permission: 'none',
+     run: async (a, ctx) => {
+       const query = String(a.query);
+       const caseSensitive = Boolean(a.case_sensitive);
+       const flags = caseSensitive ? 'g' : 'gi';
+       const regex = new RegExp(query, flags);
+       const hits = [];
+       
+       walkFiles(resolve(ctx, '.'), (file) => {
+         if (hits.length >= 100 || BINARY.test(file) || fs.statSync(file).size > 1e6) return;
+         const content = fs.readFileSync(file, 'utf8');
+         const lines = content.split('\n');
+         
+         lines.forEach((line, i) => {
+           if (hits.length < 100 && regex.test(line)) {
+             hits.push(`${path.relative(ctx.chat.folder, file)}:${i + 1}: ${line.trim().slice(0, 200)}`);
+           }
+         });
+       });
+       
+       return { text: hits.join('\n') || 'No matches found.' };
+     },
+   },
+ ];
